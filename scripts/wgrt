@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+# Bootstrap AI Balancer from a GitHub repository or a local project directory.
+# Usage: wgrt https://github.com/owner/repository
+SOURCE_URL="${1:-https://github.com/XISIRUS-SH/CLIENT-VK-TROP.git}"
+INSTALLER_URL="${SOURCE_URL%/}"
+INSTALLER_URL="${INSTALLER_URL%.git}/raw/main/install.sh"
+
+if [[ "${SOURCE_URL}" == http://* || "${SOURCE_URL}" == https://* ]]; then
+  exec curl --fail --silent --show-error --location "${INSTALLER_URL}" | \
+    REPO_URL="${SOURCE_URL}" bash
+fi
+
+if [[ -x "${SOURCE_URL}/scripts/install.sh" ]]; then
+  exec sudo bash "${SOURCE_URL}/scripts/install.sh"
+fi
+
+echo "Expected a GitHub repository URL or a local project directory." >&2
+exit 2

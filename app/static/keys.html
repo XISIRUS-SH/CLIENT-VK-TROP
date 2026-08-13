@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1a0a2e" />
+    <title>AI Balancer · Ключи</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body class="keys-page">
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand"><div class="brand-mark">AB</div><div><strong>AI Balancer</strong><small>Private control plane</small></div></div>
+        <nav class="nav-actions"><a class="nav-link" href="/">Чат</a><a class="nav-link active" href="/keys">Ключи</a><button class="button button-ghost" id="logoutButton" type="button">Выйти</button></nav>
+      </header>
+      <section class="page-header">
+        <div><div class="eyebrow">KEY POOL</div><h1>Управление ключами</h1><p>Ключи хранятся в зашифрованном виде. Провайдер и модели определяются автоматически.</p></div>
+        <button class="button button-primary" id="openKeyModal" type="button">Добавить ключ <span>+</span></button>
+      </section>
+      <section class="summary-grid">
+        <div class="summary-card"><span class="summary-icon purple">K</span><div><small>Всего ключей</small><strong id="totalKeys">—</strong></div></div>
+        <div class="summary-card"><span class="summary-icon green">A</span><div><small>Активны</small><strong id="activeKeys">—</strong></div></div>
+        <div class="summary-card"><span class="summary-icon orange">P</span><div><small>На паузе</small><strong id="pausedKeys">—</strong></div></div>
+      </section>
+      <section class="table-card">
+        <div class="table-toolbar"><div><h2>API-ключи</h2><p>Секреты никогда не покидают сервер.</p></div><span class="connection-badge" id="connectionBadge">Загрузка…</span></div>
+        <div class="table-scroll"><table><thead><tr><th>Ключ и провайдер</th><th>Статус</th><th>Запросы</th><th>Токены</th><th>Модели</th><th>Приоритет</th><th></th></tr></thead><tbody id="keysTable"><tr><td colspan="7" class="empty-cell">Загрузка ключей…</td></tr></tbody></table></div>
+      </section>
+      <section class="table-card files-card"><div class="table-toolbar"><div><h2>Последние архивы</h2><p>Собранные проекты доступны для скачивания.</p></div></div><div id="filesList" class="files-list"><div class="empty-state">Архивов пока нет.</div></div></section>
+    </main>
+    <div class="modal-backdrop hidden" id="keyModal">
+      <form class="modal-card" id="keyForm">
+        <button class="modal-close" id="closeKeyModal" type="button" aria-label="Закрыть">×</button>
+        <div class="eyebrow">NEW CREDENTIAL</div><h2>Добавить API-ключ</h2><p>Провайдер будет распознан по формату ключа или адресу совместимого API.</p>
+        <label for="keyName">Название</label><input id="keyName" type="text" placeholder="Например, production 01" required maxlength="120" />
+        <label for="keyValue">API-ключ</label><input id="keyValue" type="password" placeholder="gsk_… / sk-… / sk-ant-…" required autocomplete="off" />
+        <label for="keyEndpoint">Endpoint для локальной или совместимой модели <span class="optional">(необязательно)</span></label><input id="keyEndpoint" type="url" placeholder="http://127.0.0.1:11434/v1" />
+        <div class="detected-provider" id="detectedProvider">Провайдер определится после ввода ключа.</div>
+        <label for="keyPriority">Приоритет <span class="optional">(меньше — раньше выбирается)</span></label><input id="keyPriority" type="number" min="0" max="10000" value="100" />
+        <div class="form-error" id="keyError"></div><button class="button button-primary full-width" type="submit">Сохранить и проверить <span>↗</span></button>
+      </form>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script src="/static/script.js"></script>
+  </body>
+</html>

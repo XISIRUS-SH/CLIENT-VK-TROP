@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1a0a2e" />
+    <title>AI Balancer · Chat</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body class="chat-page">
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-label="Открыть меню">≡</button>
+          <div class="brand-mark">AB</div>
+          <div><strong>AI Balancer</strong><small>Private control plane</small></div>
+        </div>
+        <nav class="nav-actions">
+          <a class="nav-link active" href="/">Чат</a>
+          <a class="nav-link" href="/keys">Ключи</a>
+          <button class="button button-ghost" id="logoutButton" type="button">Выйти</button>
+        </nav>
+      </header>
+
+      <section class="chat-layout">
+        <aside class="chat-sidebar" id="chatSidebar">
+          <div class="sidebar-topline">
+            <div class="eyebrow">ИСТОРИЯ</div>
+            <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Закрыть меню">×</button>
+          </div>
+          <button class="button button-primary new-chat-button" id="newChatButton" type="button"><span class="plus-icon">+</span> Новый чат</button>
+          <div class="chat-list" id="chatList"><div class="empty-state">Загрузка чатов…</div></div>
+          <div class="sidebar-divider"></div>
+          <div class="session-card"><span class="live-dot"></span><div><strong>Пул подключён</strong><small id="sidebarModel">Модели загружаются…</small></div></div>
+          <div class="mini-stats">
+            <div class="mini-stat"><span>Активны</span><strong id="activeKeys">—</strong></div>
+            <div class="mini-stat"><span>На паузе</span><strong id="pausedKeys">—</strong></div>
+          </div>
+          <div class="sidebar-divider"></div>
+          <div class="eyebrow">БЫСТРЫЕ ЗАПРОСЫ</div>
+          <button class="prompt-chip" data-prompt="Собери небольшую FastAPI панель с README и Dockerfile">Собрать проект</button>
+          <button class="prompt-chip" data-prompt="Экспортируй конфигурацию для production-деплоя">Экспортировать конфиг</button>
+          <button class="prompt-chip" data-prompt="Объясни текущий статус пула ключей">Проверить пул</button>
+        </aside>
+
+        <section class="chat-panel">
+          <div class="chat-heading">
+            <div class="chat-heading-copy">
+              <div class="eyebrow">AI WORKSPACE</div>
+              <h1 id="chatTitle">Новый чат</h1>
+              <p>Продолжайте разговор с сохранением истории и автоматическим переключением ключей.</p>
+            </div>
+            <div class="chat-controls">
+              <label class="model-control" for="modelSelect"><span>МОДЕЛЬ</span><select id="modelSelect"><option value="">Добавьте ключ</option></select></label>
+              <span class="connection-badge" id="connectionBadge">Подключение…</span>
+            </div>
+          </div>
+          <div class="route-indicator" id="routeIndicator">Модель будет выбрана после отправки</div>
+          <div class="messages" id="messages" aria-live="polite">
+            <div class="welcome-message">
+              <div class="welcome-orb">AB</div>
+              <h2>Готов к задаче</h2>
+              <p>Опишите проект, попросите код или настройку. Для запросов на сборку архив появится прямо в ответе.</p>
+            </div>
+          </div>
+          <form class="composer" id="chatForm">
+            <textarea id="promptInput" rows="2" placeholder="Например: Собери панель для WareGuard…" autocomplete="off"></textarea>
+            <div class="composer-footer">
+              <span class="composer-hint">Enter — отправить · Shift + Enter — новая строка</span>
+              <button class="button button-primary" id="sendButton" type="submit"><span>Отправить</span><span class="send-arrow">↗</span></button>
+            </div>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <div class="login-overlay" id="loginOverlay">
+      <form class="login-card" id="loginForm">
+        <div class="brand-mark large">AB</div>
+        <div class="eyebrow">PRIVATE CONTROL PLANE</div>
+        <h1>Добро пожаловать</h1>
+        <p>Введите пароль администратора, чтобы открыть AI Balancer.</p>
+        <label for="passwordInput">Пароль администратора</label>
+        <input id="passwordInput" type="password" required autocomplete="current-password" />
+        <div class="form-error" id="loginError"></div>
+        <button class="button button-primary full-width" type="submit">Открыть панель <span>↗</span></button>
+      </form>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script src="/static/script.js"></script>
+  </body>
+</html>
